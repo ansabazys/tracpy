@@ -1,4 +1,4 @@
-# Analytics SaaS Platform
+# Tracpy Platform
 
 A scalable, event-driven **website analytics SaaS platform** designed to collect, process, and visualize website traffic data in real time.
 The platform enables businesses to track visitor behavior, traffic sources, device usage, and performance metrics through a lightweight tracking script and a modern analytics dashboard.
