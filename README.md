@@ -82,7 +82,7 @@ Each component can scale independently to support high traffic workloads.
 # Repository Structure
 
 ```
-analytics-saas
+tracpy
 │
 ├── apps
 │   ├── dashboard          # Next.js analytics dashboard
