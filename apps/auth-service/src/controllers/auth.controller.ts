@@ -147,7 +147,7 @@ export async function logout(req: Request, res: Response) {
     const token = req.cookies.refreshToken;
 
     if (token) {
-      await db.session.deleteMany({
+      await db.session.delete({
         where: { refreshToken: token },
       });
     }
@@ -168,10 +168,37 @@ export async function logout(req: Request, res: Response) {
   }
 }
 
-export async function me(
-  req: Request & { user?: { userId: string } },
-  res: Response
-) {
+export async function logoutAll(req: Request & { user?: { userId: string } }, res: Response) {
+  try {
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    await db.session.deleteMany({
+      where: { userId },
+    });
+
+    res.clearCookie("refreshToken", {
+      path: "/auth/refresh",
+    });
+
+    res.json({
+      message: "Logged out from all devices",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
+
+export async function me(req: Request & { user?: { userId: string } }, res: Response) {
   try {
     const userId = req.user?.userId;
 
