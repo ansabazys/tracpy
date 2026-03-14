@@ -6,10 +6,7 @@ dotenv.config();
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 
-  PORT: z
-    .string()
-    .transform((val) => Number(val))
-    .default(4000),
+  PORT: z.coerce.number().default(4000),
 
   DATABASE_URL: z.string().optional(),
 
@@ -20,6 +17,13 @@ const envSchema = z.object({
   SERVICE_NAME: z.string().default("tracpy-service"),
 
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
+
+  // 🔐 JWT
+  JWT_ACCESS_SECRET: z.string().optional(),
+  JWT_REFRESH_SECRET: z.string().optional(),
+
+  ACCESS_TOKEN_EXPIRES: z.string().default("15m"),
+  REFRESH_TOKEN_EXPIRES: z.string().default("7d"),
 });
 
 const parsed = envSchema.safeParse(process.env);

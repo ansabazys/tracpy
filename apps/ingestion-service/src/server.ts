@@ -12,7 +12,7 @@ app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok", service: "ingestion-service" });
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   logger.error(err);
 
   res.status(500).json({
