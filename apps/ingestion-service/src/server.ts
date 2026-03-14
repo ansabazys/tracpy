@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import { env } from "@repo/config";
 import PinoHttp from "pino-http";
 import { logger } from "./utils/logger";
 
@@ -12,7 +11,7 @@ app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok", service: "ingestion-service" });
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   logger.error(err);
 
   res.status(500).json({
@@ -20,6 +19,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(env.PORT, () => {
-  logger.info(`Ingestion running on port ${env.PORT}`);
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  logger.info(`Ingestion running on port ${PORT}`);
 });
