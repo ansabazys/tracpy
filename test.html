@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tracpy Test</title>
+</head>
+<body>
+
+<h1>Testing Tracpy SDK</h1>
+
+<script type="module">
+
+import { Tracpy } from "./packages/sdk/dist/index.mjs";
+
+const tracpy = new Tracpy("dad2812d-6c88-4bd3-8e80-e46c5126fdb2", {
+  endpoint: "http://localhost:4000/events/collect"
+});
+
+tracpy.track("test_event");
+
+</script>
+
+</body>
+</html>

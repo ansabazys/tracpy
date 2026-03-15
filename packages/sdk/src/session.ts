@@ -1,4 +1,9 @@
-const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+const SESSION_TIMEOUT = 30 * 60 * 1000;
+
+interface SessionData {
+  id: string;
+  lastActivity: number;
+}
 
 function generateSessionId(): string {
   return `sess_${crypto.randomUUID()}`;
@@ -9,33 +14,34 @@ export function getSessionId(): string {
 
   if (!stored) {
     const sessionId = generateSessionId();
-    localStorage.setItem(
-      "tracpy_session",
-      JSON.stringify({
-        id: sessionId,
-        lastActivity: Date.now(),
-      }),
-    );
+
+    const data: SessionData = {
+      id: sessionId,
+      lastActivity: Date.now(),
+    };
+
+    localStorage.setItem("tracpy_session", JSON.stringify(data));
+
     return sessionId;
   }
 
-  const session = JSON.parse(stored);
+  const session: SessionData = JSON.parse(stored);
 
   if (Date.now() - session.lastActivity > SESSION_TIMEOUT) {
     const newSession = generateSessionId();
 
-    localStorage.setItem(
-      "tracpy_session",
-      JSON.stringify({
-        id: newSession,
-        lastActivity: Date.now(),
-      }),
-    );
+    const data: SessionData = {
+      id: newSession,
+      lastActivity: Date.now(),
+    };
+
+    localStorage.setItem("tracpy_session", JSON.stringify(data));
 
     return newSession;
   }
 
   session.lastActivity = Date.now();
+
   localStorage.setItem("tracpy_session", JSON.stringify(session));
 
   return session.id;

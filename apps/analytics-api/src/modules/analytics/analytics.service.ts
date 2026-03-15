@@ -4,7 +4,7 @@ export const getPageViews = async (websiteId: string) => {
   const total = await db.event.count({
     where: {
       websiteId,
-      event: "page_view",
+      event: "pageview",
     },
   });
 
@@ -16,7 +16,7 @@ export const getPageViewsByPage = async (websiteId: string) => {
     by: ["path"],
     where: {
       websiteId,
-      event: "page_view",
+      event: "pageview",
     },
     _count: {
       path: true,
@@ -38,7 +38,7 @@ export const getUniqueVisitors = async (websiteId: string) => {
   const visitors = await db.event.findMany({
     where: {
       websiteId,
-      event: "page_view",
+      event: "pageview",
     },
     distinct: ["visitorId"],
     select: {
@@ -96,11 +96,8 @@ export const getBrowserAnalytics = async (websiteId: string) => {
   return result;
 };
 
-
 export const getCountryAnalytics = async (websiteId: string) => {
-  const result = await db.$queryRaw<
-    { country: string; count: number }[]
-  >`
+  const result = await db.$queryRaw<{ country: string; count: number }[]>`
     SELECT
       COALESCE(country, 'unknown') as country,
       COUNT(*) as count
