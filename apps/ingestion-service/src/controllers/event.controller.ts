@@ -11,6 +11,7 @@ export const collectEvent = async (req: Request, res: Response, next: NextFuncti
     if (!parsed.success) {
       return res.status(400).json({
         error: "Invalid event payload",
+        details: parsed.error.flatten(),
       });
     }
 
