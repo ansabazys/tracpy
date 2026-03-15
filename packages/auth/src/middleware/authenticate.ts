@@ -1,12 +1,6 @@
-import jwt from "jsonwebtoken";
-import { env } from "@repo/config";
 import { Request, Response, NextFunction } from "express";
-
-interface AuthPayload {
-  userId: string;
-  email?: string;
-  role?: string;
-}
+import { verifyToken } from "../utils/verifyToken";
+import { AuthPayload } from "../types/auth.types";
 
 export const authenticate = (
   req: Request & { user?: AuthPayload },
@@ -30,7 +24,7 @@ export const authenticate = (
   }
 
   try {
-    const decoded = jwt.verify(token, env.JWT_ACCESS_SECRET!) as unknown as AuthPayload;
+    const decoded = verifyToken(token);
 
     req.user = decoded;
 

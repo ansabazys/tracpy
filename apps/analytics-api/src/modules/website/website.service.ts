@@ -1,5 +1,5 @@
 import { db } from "@repo/database";
-import { generatePublicKey, generateSecretKey } from "../utils/generateApiKey";
+import { generatePublicKey, generateSecretKey } from "../../utils/generateApiKey";
 
 export const createWebsite = async (organizationId: string, name: string, domain: string) => {
   const publicKey = generatePublicKey();
