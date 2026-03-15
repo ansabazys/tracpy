@@ -6,7 +6,7 @@ import {
   getWebsites,
   regenerateWebsiteKeys,
   updateWebsite,
-} from "../services/website.service";
+} from "./website.service";
 
 export const createWebsiteController = async (req: Request, res: Response) => {
   try {

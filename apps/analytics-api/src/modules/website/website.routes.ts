@@ -6,7 +6,7 @@ import {
   getWebsitesController,
   regenerateWebsiteKeysController,
   updateWebsiteController,
-} from "../controllers/website.controller";
+} from "./website.controller";
 
 const router = express.Router();
 
