@@ -6,6 +6,6 @@ export const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: {
-    message: "Too many requests, please try again later."
-  }
+    message: "Too many requests, please try again later.",
+  },
 });

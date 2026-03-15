@@ -1,2 +1,2 @@
 export * from "./middleware/auth";
-export * from "./middleware/rate-limit"
+export * from "./middleware/rate-limit";

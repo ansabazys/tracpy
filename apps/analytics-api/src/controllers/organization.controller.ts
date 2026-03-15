@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import { createOrganization } from "../services/organization.service";
 
-export const createOrganizationController = async (
-  req: Request,
-  res: Response
-) => {
+export const createOrganizationController = async (req: Request, res: Response) => {
   try {
     const { name, slug, ownerId } = req.body;
 

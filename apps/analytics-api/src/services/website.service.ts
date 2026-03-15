@@ -1,11 +1,7 @@
 import { db } from "@repo/database";
 import { generatePublicKey, generateSecretKey } from "../utils/generateApiKey";
 
-export const createWebsite = async (
-  organizationId: string,
-  name: string,
-  domain: string
-) => {
+export const createWebsite = async (organizationId: string, name: string, domain: string) => {
   const publicKey = generatePublicKey();
   const secretKey = generateSecretKey();
 
@@ -39,10 +35,7 @@ export const getWebsiteById = async (id: string) => {
   });
 };
 
-export const updateWebsite = async (
-  id: string,
-  data: { name?: string; domain?: string }
-) => {
+export const updateWebsite = async (id: string, data: { name?: string; domain?: string }) => {
   return db.website.update({
     where: { id },
     data,

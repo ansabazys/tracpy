@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
-import { createWebsite, deleteWebsite, getWebsiteById, getWebsites, regenerateWebsiteKeys, updateWebsite } from "../services/website.service";
+import {
+  createWebsite,
+  deleteWebsite,
+  getWebsiteById,
+  getWebsites,
+  regenerateWebsiteKeys,
+  updateWebsite,
+} from "../services/website.service";
 
 export const createWebsiteController = async (req: Request, res: Response) => {
   try {
@@ -59,10 +66,7 @@ export const getWebsiteController = async (req: Request, res: Response) => {
   }
 };
 
-export const updateWebsiteController = async (
-  req: Request<{ id: string }>,
-  res: Response
-) => {
+export const updateWebsiteController = async (req: Request<{ id: string }>, res: Response) => {
   try {
     const { id } = req.params;
     const { name, domain } = req.body;
@@ -81,10 +85,7 @@ export const updateWebsiteController = async (
   }
 };
 
-export const deleteWebsiteController = async (
-  req: Request<{ id: string }>,
-  res: Response
-) => {
+export const deleteWebsiteController = async (req: Request<{ id: string }>, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -103,7 +104,7 @@ export const deleteWebsiteController = async (
 
 export const regenerateWebsiteKeysController = async (
   req: Request<{ id: string }>,
-  res: Response
+  res: Response,
 ) => {
   try {
     const { id } = req.params;
