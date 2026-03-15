@@ -91,10 +91,12 @@ model Event {
   websiteId String
   website   Website @relation(fields: [websiteId], references: [id])
 
+  event String
+
   sessionId String
   visitorId String
 
-  path     String
+  path String
   referrer String?
 
   country String?
@@ -102,11 +104,15 @@ model Event {
   browser String?
   os      String?
 
+  ip String?
+
   createdAt DateTime @default(now())
 
   @@index([websiteId])
   @@index([createdAt])
   @@index([websiteId, createdAt])
+  @@index([sessionId])
+  @@index([visitorId])
 }
 
 model Session {

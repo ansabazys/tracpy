@@ -1,6 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import { logger } from "../utils/logger";
-import { eventSchema } from "../validators/event.validator";
+import { Request, Response, NextFunction } from "express"
+import { logger } from "../utils/logger"
+import { eventSchema } from "../validators/event.validator"
+import { detectDevice } from "../utils/device"
+import { EnrichedEvent } from "../types/event"
 
 export const collectEvent = (
   req: Request,
@@ -8,30 +10,35 @@ export const collectEvent = (
   next: NextFunction
 ) => {
   try {
-    const parsed = eventSchema.safeParse(req.body);
+    const parsed = eventSchema.safeParse(req.body)
 
     if (!parsed.success) {
       return res.status(400).json({
-        error: "Invalid event payload",
-        details: parsed.error.flatten(),
-      });
+        error: "Invalid event payload"
+      })
     }
 
-    const event = parsed.data;
+    const event = parsed.data
 
-    logger.info(
-      {
-        siteId: event.siteId,
-        event: event.event,
-        url: event.url,
-      },
-      "Event received"
-    );
+    const userAgent = req.headers["user-agent"]
+    const referrer = req.headers["referer"]
+
+    const enrichedEvent: EnrichedEvent = {
+      ...event,
+      ip: req.ip,
+      userAgent,
+      referrer,
+      device: detectDevice(userAgent),
+      receivedAt: Date.now()
+    }
+
+    logger.info(enrichedEvent, "Analytics event received")
 
     res.status(202).json({
-      success: true,
-    });
+      success: true
+    })
+
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
