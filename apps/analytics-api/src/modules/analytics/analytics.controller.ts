@@ -48,3 +48,27 @@ export const getTrafficSources = async (req: Request, res: Response, next: NextF
     next(error);
   }
 };
+
+export const getDevices = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const websiteId = req.params.websiteId as string;
+
+    const data = await analyticsService.getDeviceAnalytics(websiteId);
+
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getBrowsers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const websiteId = req.params.websiteId as string;
+
+    const data = await analyticsService.getBrowserAnalytics(websiteId);
+
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+};

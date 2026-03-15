@@ -65,3 +65,38 @@ export const getTrafficSources = async (websiteId: string) => {
 
   return result;
 };
+
+
+export const getDeviceAnalytics = async (websiteId: string) => {
+  const result = await db.$queryRaw<
+    { device: string; count: number }[]
+  >`
+    SELECT
+      COALESCE(device, 'unknown') as device,
+      COUNT(*) as count
+    FROM "Event"
+    WHERE "websiteId" = ${websiteId}
+      AND event = 'pageview'
+    GROUP BY device
+    ORDER BY count DESC
+  `;
+
+  return result;
+};
+
+export const getBrowserAnalytics = async (websiteId: string) => {
+  const result = await db.$queryRaw<
+    { browser: string; count: number }[]
+  >`
+    SELECT
+      COALESCE(browser, 'unknown') as browser,
+      COUNT(*) as count
+    FROM "Event"
+    WHERE "websiteId" = ${websiteId}
+      AND event = 'pageview'
+    GROUP BY browser
+    ORDER BY count DESC
+  `;
+
+  return result;
+};
