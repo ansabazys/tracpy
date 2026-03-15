@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as analyticsService from "./analytics.service";
 
-export const getPageViews = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getPageViews = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { websiteId } = req.params;
 
@@ -17,11 +13,7 @@ export const getPageViews = async (
   }
 };
 
-export const getPageViewsByPage = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getPageViewsByPage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { websiteId } = req.params;
 

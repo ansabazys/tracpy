@@ -1,8 +1,5 @@
 import { Router } from "express";
-import {
-  getPageViews,
-  getPageViewsByPage,
-} from "./analytics.controller";
+import { getPageViews, getPageViewsByPage } from "./analytics.controller";
 
 const router = Router();
 
