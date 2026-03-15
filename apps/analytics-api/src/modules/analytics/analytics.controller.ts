@@ -36,3 +36,15 @@ export const getUniqueVisitors = async (req: Request, res: Response, next: NextF
     next(error);
   }
 };
+
+export const getTrafficSources = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const websiteId = req.params.websiteId as string;
+
+    const data = await analyticsService.getTrafficSources(websiteId);
+
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+};

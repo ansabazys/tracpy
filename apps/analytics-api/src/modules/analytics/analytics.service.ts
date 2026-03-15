@@ -50,3 +50,18 @@ export const getUniqueVisitors = async (websiteId: string) => {
     visitors: visitors.length,
   };
 };
+
+export const getTrafficSources = async (websiteId: string) => {
+  const result = await db.$queryRaw<{ source: string; visits: number }[]>`
+    SELECT
+      COALESCE(referrer, 'direct') as source,
+      COUNT(*) as visits
+    FROM "Event"
+    WHERE "websiteId" = ${websiteId}
+      AND event = 'pageview'
+    GROUP BY source
+    ORDER BY visits DESC
+  `;
+
+  return result;
+};
