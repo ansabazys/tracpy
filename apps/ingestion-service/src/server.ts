@@ -2,8 +2,17 @@ import express, { Request, Response, NextFunction } from "express";
 import PinoHttp from "pino-http";
 import { logger } from "./utils/logger";
 import eventRoutes from "./routes/event.routes";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+    methods: ["POST", "GET", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  }),
+);
 
 app.use(PinoHttp({ logger }));
 app.use(express.json());

@@ -73,11 +73,7 @@ export const getBrowsers = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const getCountries = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getCountries = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const websiteId = req.params.websiteId as string;
 

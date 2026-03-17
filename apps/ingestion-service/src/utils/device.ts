@@ -1,10 +1,15 @@
-export function detectDevice(userAgent?: string): "mobile" | "tablet" | "desktop" {
-  if (!userAgent) return "desktop";
+import { UAParser } from "ua-parser-js";
 
-  const ua = userAgent.toLowerCase();
+export function detectDevice(userAgent?: string) {
+  const parser = new UAParser(userAgent);
 
-  if (ua.includes("mobile")) return "mobile";
-  if (ua.includes("tablet")) return "tablet";
+  const deviceType = parser.getDevice().type || "desktop";
+  const browser = parser.getBrowser().name || null;
+  const os = parser.getOS().name || null;
 
-  return "desktop";
+  return {
+    device: deviceType,
+    browser,
+    os,
+  };
 }
