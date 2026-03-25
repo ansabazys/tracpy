@@ -6,7 +6,6 @@ import { ArrowRight, Github } from "lucide-react";
 import { register } from "@/lib/api/services/auth.api";
 import { useRouter } from "next/navigation";
 
-
 export default function RegisterPage() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -28,7 +27,7 @@ export default function RegisterPage() {
         password,
       });
 
-      router.push("/login")
+      router.push("/login");
     } catch {
       setError("Something went wrong");
     } finally {

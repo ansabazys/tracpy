@@ -135,7 +135,6 @@ export default function Home() {
         </div>
       </div>
 
- 
       <div className="grid gap-5 border-zinc-900 md:grid-cols-3">
         <OverviewStatPanel
           title="Total Sessions"
@@ -177,9 +176,7 @@ export default function Home() {
             <h3 className="mb-2 font-mono text-[10px] tracking-widest text-[#888888] uppercase">
               Page Views
             </h3>
-            <p className="text-[28px] tracking-wider text-white mt-1">
-              78,952,598,273
-            </p>
+            <p className="text-[28px] tracking-wider text-white mt-1">78,952,598,273</p>
             <p className="font-mono text-[10px] text-[#888888] mt-2">Total pages viewed</p>
           </div>
         </div>

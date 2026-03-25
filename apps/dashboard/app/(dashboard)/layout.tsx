@@ -9,12 +9,7 @@ import { Header } from "@/components/dashboard/Header";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { useSidebar } from "@/lib/hooks/useSidebar";
 
-
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { isAuthenticated, isLoading } = useAuthStore();
 
@@ -34,12 +29,7 @@ export default function DashboardLayout({
   return (
     <div className="h-screen overflow-hidden bg-[#0a0a0a]">
       {/* SIDEBAR */}
-      <Sidebar
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-        open={open}
-        setOpen={setOpen}
-      />
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} open={open} setOpen={setOpen} />
 
       {/* CONTENT */}
       <div

@@ -21,8 +21,7 @@ export type MarkerOverlayProps<T extends Marker = Marker> = {
   index: number;
 };
 
-export interface DottedMapProps<T extends Marker = Marker>
-  extends React.SVGProps<SVGSVGElement> {
+export interface DottedMapProps<T extends Marker = Marker> extends React.SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   mapSamples?: number;
@@ -52,10 +51,7 @@ export function DottedMap<T extends Marker = Marker>({
     mapSamples,
   });
 
-  const processedMarkers = React.useMemo(
-    () => addMarkers(markers),
-    [addMarkers, markers]
-  );
+  const processedMarkers = React.useMemo(() => addMarkers(markers), [addMarkers, markers]);
 
   const memo = React.useMemo(() => {
     const sorted = [...points].sort((a, b) => a.y - b.y || a.x - b.x);
@@ -122,7 +118,7 @@ export function DottedMap<T extends Marker = Marker>({
 
         return (
           <g key={`${marker.x}-${marker.y}-${index}`}>
-            <circle cx={x} cy={y} r={r}  />
+            <circle cx={x} cy={y} r={r} />
 
             {renderMarkerOverlay &&
               renderMarkerOverlay({

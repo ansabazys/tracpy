@@ -4,9 +4,7 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
-  const isAuthPage =
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/register");
+  const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/register");
 
   const isDashboard = pathname.startsWith("/dashboard");
 

@@ -2,27 +2,17 @@
 
 import { ChevronLeft, ChevronRight, Menu } from "lucide-react";
 
-export function Header({
-  setOpen,
-}: {
-  setOpen: (v: boolean) => void;
-}) {
+export function Header({ setOpen }: { setOpen: (v: boolean) => void }) {
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-[#1a1a1a] bg-[#050505] px-4 md:px-8">
-      
       {/* LEFT */}
       <div className="flex items-center gap-4">
         {/* MOBILE MENU */}
-        <button
-          onClick={() => setOpen(true)}
-          className="md:hidden p-2 rounded-md hover:bg-[#111]"
-        >
+        <button onClick={() => setOpen(true)} className="md:hidden p-2 rounded-md hover:bg-[#111]">
           <Menu className="h-5 w-5 text-white" />
         </button>
 
-        <h1 className="text-lg font-medium tracking-tight text-[#ededed]">
-          Overview
-        </h1>
+        <h1 className="text-lg font-medium tracking-tight text-[#ededed]">Overview</h1>
       </div>
 
       {/* RIGHT */}
