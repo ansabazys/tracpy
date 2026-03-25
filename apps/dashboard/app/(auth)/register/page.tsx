@@ -1,7 +1,40 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Github } from "lucide-react";
+import { register } from "@/lib/api/services/auth.api";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  const handleRegister = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await register({
+        name,
+        email,
+        password,
+      });
+
+      router.push("/login");
+    } catch {
+      setError("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="mb-8">
@@ -18,54 +51,61 @@ export default function RegisterPage() {
       </div>
 
       <div className="space-y-4 font-sans">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
+        <div className="space-y-2">
+          <div className="flex">
             <label className="text-xs font-medium text-[#a1a1aa] uppercase tracking-wider">
               First Name
             </label>
-            <input
-              type="text"
-              placeholder="John"
-              className="w-full px-4 py-2.5 bg-[#09090b]/50 border border-[#27272a] rounded-lg text-white placeholder:text-[#52525b] focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all font-mono text-sm"
-            />
           </div>
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-[#a1a1aa] uppercase tracking-wider">
-              Last Name
-            </label>
-            <input
-              type="text"
-              placeholder="Doe"
-              className="w-full px-4 py-2.5 bg-[#09090b]/50 border border-[#27272a] rounded-lg text-white placeholder:text-[#52525b] focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all font-mono text-sm"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-xs font-medium text-[#a1a1aa] uppercase tracking-wider">
-            Email Address
-          </label>
           <input
-            type="email"
-            placeholder="name@example.com"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="John"
             className="w-full px-4 py-2.5 bg-[#09090b]/50 border border-[#27272a] rounded-lg text-white placeholder:text-[#52525b] focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all font-mono text-sm"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-xs font-medium text-[#a1a1aa] uppercase tracking-wider">
-            Password
-          </label>
+          <div className="flex">
+            <label className="text-xs font-medium text-[#a1a1aa] uppercase tracking-wider">
+              Email Address
+            </label>
+          </div>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@example.com"
+            className="w-full px-4 py-2.5 active:bg-none bg-[#09090b]/50 border border-[#27272a] rounded-lg text-white placeholder:text-[#52525b] focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all font-mono text-sm"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex">
+            <label className="text-xs font-medium text-[#a1a1aa] uppercase tracking-wider">
+              Password
+            </label>
+          </div>
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             className="w-full px-4 py-2.5 bg-[#09090b]/50 border border-[#27272a] rounded-lg text-white placeholder:text-[#52525b] focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all font-mono text-sm"
           />
           <p className="text-xs text-[#52525b] mt-1">Must be at least 8 characters long.</p>
         </div>
 
-        <button className="w-full py-2.5 px-4 bg-white text-black font-medium rounded-lg hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 group mt-6">
-          Create Account
+        {/* Error (no UI change, just text) */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        <button
+          onClick={handleRegister}
+          disabled={loading}
+          className="w-full py-2.5 px-4 bg-white text-black font-medium rounded-lg hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 group mt-6 disabled:opacity-50"
+        >
+          {loading ? "Creating..." : "Create Account"}
           <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
         </button>
 

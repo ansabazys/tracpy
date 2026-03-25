@@ -1,26 +1,39 @@
 import * as React from "react";
 import { createMap } from "svg-dotted-map";
-
 import { cn } from "@/lib/utils";
 
-interface Marker {
+export interface Marker {
   lat: number;
   lng: number;
   size?: number;
 }
 
-export interface DottedMapProps extends React.SVGProps<SVGSVGElement> {
+type WithXY<T> = T & {
+  x: number;
+  y: number;
+};
+
+export type MarkerOverlayProps<T extends Marker = Marker> = {
+  marker: WithXY<T>;
+  x: number;
+  y: number;
+  r: number;
+  index: number;
+};
+
+export interface DottedMapProps<T extends Marker = Marker> extends React.SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   mapSamples?: number;
-  markers?: Marker[];
+  markers?: T[];
   dotColor?: string;
   markerColor?: string;
   dotRadius?: number;
   stagger?: boolean;
+  renderMarkerOverlay?: (props: MarkerOverlayProps<T>) => React.ReactNode;
 }
 
-export function DottedMap({
+export function DottedMap<T extends Marker = Marker>({
   width = 150,
   height = 75,
   mapSamples = 5000,
@@ -30,7 +43,8 @@ export function DottedMap({
   stagger = true,
   className,
   style,
-}: DottedMapProps) {
+  renderMarkerOverlay,
+}: DottedMapProps<T>) {
   const { points, addMarkers } = createMap({
     width,
     height,
@@ -96,14 +110,25 @@ export function DottedMap({
         const rowIndex = yToRowIndex.get(marker.y) ?? 0;
         const offsetX = stagger && rowIndex % 2 === 1 ? xStep / 2 : 0;
 
+        const x = marker.x + offsetX;
+        const y = marker.y;
+        const r = marker.size ?? dotRadius;
+
+        const typedMarker = marker as unknown as WithXY<T>;
+
         return (
-          <circle
-            cx={marker.x + offsetX}
-            cy={marker.y}
-            r={marker.size ?? dotRadius}
-            fill={markerColor}
-            key={`${marker.x}-${marker.y}-${index}`}
-          />
+          <g key={`${marker.x}-${marker.y}-${index}`}>
+            <circle cx={x} cy={y} r={r} />
+
+            {renderMarkerOverlay &&
+              renderMarkerOverlay({
+                marker: typedMarker,
+                x,
+                y,
+                r,
+                index,
+              })}
+          </g>
         );
       })}
     </svg>
