@@ -1,78 +1,35 @@
-import * as dotenv from "dotenv";
-import path from "path";
-import { Pool } from "pg";
-import { drizzle } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import * as schema from "./schema";
 
 export { and, desc, eq, sql } from "drizzle-orm";
 
-/**
- * ✅ Load env (monorepo safe)
- */
-dotenv.config({
-  path: path.resolve(process.cwd(), "../../.env"),
-});
+const DATABASE_URL = process.env.DATABASE_URL;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("❌ DATABASE_URL is not defined");
+if (!DATABASE_URL) {
+  throw new Error("DATABASE_URL missing");
 }
 
 /**
- * ✅ Detect environment
+ * 🔥 Neon HTTP client (NO TLS issues)
  */
-const isProduction = process.env.NODE_ENV === "production";
+const sql = neon(DATABASE_URL);
 
 /**
- * ✅ Global caching (for dev hot reload)
+ * ✅ Drizzle instance
  */
-const globalForDatabase = globalThis as typeof globalThis & {
-  __tracpy_db__?: ReturnType<typeof drizzle<typeof schema>>;
-  __tracpy_pool__?: Pool;
-};
-
-/**
- * ✅ Create pool
- */
-export const pool =
-  globalForDatabase.__tracpy_pool__ ??
-  new Pool({
-    connectionString: process.env.DATABASE_URL,
-
-    // 🔥 FIX: Only enable SSL in production
-    ...(isProduction && {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    }),
-  });
-
-/**
- * ✅ Create drizzle instance
- */
-export const db =
-  globalForDatabase.__tracpy_db__ ??
-  drizzle(pool, {
-    schema,
-  });
-
-/**
- * ✅ Cache in dev
- */
-if (!isProduction) {
-  globalForDatabase.__tracpy_pool__ = pool;
-  globalForDatabase.__tracpy_db__ = db;
-}
+export const db = drizzle(sql, { schema });
 
 /**
  * ✅ Test connection
  */
-pool
-  .query("select 1")
-  .then(() => {
-    console.log("🟢 DB connected");
-  })
-  .catch((err) => {
+(async () => {
+  try {
+    const result = await sql`SELECT 1`;
+    console.log("🟢 DB connected (Neon HTTP)");
+  } catch (err) {
     console.error("🔴 DB connection failed:", err);
-  });
+  }
+})();
 
 export * from "./schema";
