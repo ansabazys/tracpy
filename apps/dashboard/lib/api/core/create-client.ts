@@ -1,8 +1,4 @@
-import axios, {
-  InternalAxiosRequestConfig,
-  AxiosError,
-  AxiosInstance,
-} from "axios";
+import axios, { InternalAxiosRequestConfig, AxiosError, AxiosInstance } from "axios";
 import { getAccessToken, setAccessToken, clearAccessToken } from "./token";
 import { authApi } from "../clients/auth-client";
 
@@ -42,10 +38,7 @@ export const createApiClient = (baseURL: string): AxiosInstance => {
   let isRefreshing = false;
   let failedQueue: QueueItem[] = [];
 
-  const processQueue = (
-    error: AxiosError | null,
-    token: string | null = null
-  ) => {
+  const processQueue = (error: AxiosError | null, token: string | null = null) => {
     failedQueue.forEach((prom) => {
       if (error) {
         prom.reject(error);
@@ -118,7 +111,7 @@ export const createApiClient = (baseURL: string): AxiosInstance => {
       }
 
       return Promise.reject(error);
-    }
+    },
   );
 
   return instance;

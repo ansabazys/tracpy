@@ -6,8 +6,7 @@ export function middleware(req: NextRequest) {
 
   const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/register");
 
-  const isProtectedPage =
-    pathname.startsWith("/overview") || pathname.startsWith("/realtime");
+  const isProtectedPage = pathname.startsWith("/overview") || pathname.startsWith("/realtime");
 
   const hasRefreshToken = req.cookies.get("refreshToken");
 

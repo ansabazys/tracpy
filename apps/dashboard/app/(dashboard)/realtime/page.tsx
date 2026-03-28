@@ -22,11 +22,35 @@ const topStats = [
 ];
 
 const liveRows = [
-  { time: "14:32:45", geo: "US", path: "/pricing", event: "page_view", eventColor: "text-[#ededed]" },
-  { time: "14:32:44", geo: "DE", path: "/docs/api-reference", event: "click", eventColor: "text-[#888888]" },
-  { time: "14:32:42", geo: "IN", path: "/dashboard/settings", event: "page_view", eventColor: "text-[#ededed]" },
+  {
+    time: "14:32:45",
+    geo: "US",
+    path: "/pricing",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
+  {
+    time: "14:32:44",
+    geo: "DE",
+    path: "/docs/api-reference",
+    event: "click",
+    eventColor: "text-[#888888]",
+  },
+  {
+    time: "14:32:42",
+    geo: "IN",
+    path: "/dashboard/settings",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
   { time: "14:32:40", geo: "UK", path: "/signup", event: "signup", eventColor: "text-emerald-500" },
-  { time: "14:32:38", geo: "US", path: "/blog/new-features", event: "page_view", eventColor: "text-[#ededed]" },
+  {
+    time: "14:32:38",
+    geo: "US",
+    path: "/blog/new-features",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
   { time: "14:32:35", geo: "CA", path: "/pricing", event: "click", eventColor: "text-[#888888]" },
   {
     time: "14:32:31",
@@ -38,7 +62,13 @@ const liveRows = [
   },
   { time: "14:32:28", geo: "JP", path: "/docs", event: "page_view", eventColor: "text-[#ededed]" },
   { time: "14:32:25", geo: "AU", path: "/about", event: "click", eventColor: "text-[#888888]" },
-  { time: "14:32:20", geo: "US", path: "/pricing", event: "page_view", eventColor: "text-[#ededed]" },
+  {
+    time: "14:32:20",
+    geo: "US",
+    path: "/pricing",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
   { time: "14:32:15", geo: "BR", path: "/login", event: "click", eventColor: "text-[#888888]" },
 ];
 
@@ -52,7 +82,7 @@ const topRegions = [
 export default function RealtimePage() {
   return (
     <motion.div
-      className="flex flex-col gap-4 w-full h-full text-white bg-[#0a0a0a] min-h-screen"
+      className="flex flex-col gap-4 w-full h-full text-white uppercase bg-[#0a0a0a] min-h-screen"
       initial="hidden"
       animate="show"
       variants={{
@@ -97,7 +127,9 @@ export default function RealtimePage() {
             >
               {stat.value}
             </motion.span>
-            <div className={`absolute bottom-5 right-5 flex items-center text-xs font-mono ${stat.tone}`}>
+            <div
+              className={`absolute bottom-5 right-5 flex items-center text-xs font-mono ${stat.tone}`}
+            >
               <motion.svg
                 width="12"
                 height="12"
@@ -175,8 +207,8 @@ export default function RealtimePage() {
               <motion.div
                 key={`${row.time}-${row.path}`}
                 className={`grid grid-cols-12 px-5 py-3 text-xs font-mono cursor-pointer transition-colors hover:bg-[#111] ${row.highlight ? "bg-[#111111]" : ""}`}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.18 + i * 0.035, duration: 0.28 }}
                 whileHover={{ backgroundColor: "#111111" }}
               >
@@ -194,7 +226,7 @@ export default function RealtimePage() {
         <motion.div
           className="flex w-full flex-col gap-4 lg:w-[320px]"
           variants={{
-            hidden: { opacity: 0, x: 16 },
+            hidden: { opacity: 0, x: 1 },
             show: { opacity: 1, x: 0 },
           }}
           transition={{ duration: 0.45, delay: 0.12 }}

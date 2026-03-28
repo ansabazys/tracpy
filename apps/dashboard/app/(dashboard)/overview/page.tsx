@@ -181,7 +181,11 @@ export default function Home() {
           ]}
         />
 
-        <motion.div variants={revealUp} transition={{ duration: 0.45 }} className="flex flex-col gap-5">
+        <motion.div
+          variants={revealUp}
+          transition={{ duration: 0.45 }}
+          className="flex flex-col gap-5"
+        >
           <motion.div
             className="flex-1 bg-[#0a0a0a] p-5 pb-4 border border-zinc-900"
             whileHover={{ y: -4, borderColor: "rgb(39 39 42)" }}
