@@ -29,9 +29,7 @@ function getPropertyPreview(properties: EventLog["properties"]) {
     return "no properties";
   }
 
-  return entries
-    .map(([key, value]) => `${key}=${String(value)}`)
-    .join(", ");
+  return entries.map(([key, value]) => `${key}=${String(value)}`).join(", ");
 }
 
 export function EventsTable({ events, onRowClick, isLive, selectedEventId }: EventsTableProps) {
@@ -95,7 +93,9 @@ export function EventsTable({ events, onRowClick, isLive, selectedEventId }: Eve
                   <div className="truncate pr-4 font-medium text-[#ededed]">{event.eventName}</div>
                   <div className="truncate pr-4 text-[#b3b3b3]">{event.userId}</div>
                   <div className="truncate pr-6 text-[#b3b3b3]">{event.path}</div>
-                  <div className={event.status === "success" ? "text-[#888]" : "text-[#ef4444]"}>{event.status}</div>
+                  <div className={event.status === "success" ? "text-[#888]" : "text-[#ef4444]"}>
+                    {event.status}
+                  </div>
                   <div className="truncate text-[#666]">{getPropertyPreview(event.properties)}</div>
                 </motion.button>
               );

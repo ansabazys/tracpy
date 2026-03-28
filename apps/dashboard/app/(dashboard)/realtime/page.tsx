@@ -22,11 +22,35 @@ const topStats = [
 ];
 
 const liveRows = [
-  { time: "14:32:45", geo: "US", path: "/pricing", event: "page_view", eventColor: "text-[#ededed]" },
-  { time: "14:32:44", geo: "DE", path: "/docs/api-reference", event: "click", eventColor: "text-[#888888]" },
-  { time: "14:32:42", geo: "IN", path: "/dashboard/settings", event: "page_view", eventColor: "text-[#ededed]" },
+  {
+    time: "14:32:45",
+    geo: "US",
+    path: "/pricing",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
+  {
+    time: "14:32:44",
+    geo: "DE",
+    path: "/docs/api-reference",
+    event: "click",
+    eventColor: "text-[#888888]",
+  },
+  {
+    time: "14:32:42",
+    geo: "IN",
+    path: "/dashboard/settings",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
   { time: "14:32:40", geo: "UK", path: "/signup", event: "signup", eventColor: "text-emerald-500" },
-  { time: "14:32:38", geo: "US", path: "/blog/new-features", event: "page_view", eventColor: "text-[#ededed]" },
+  {
+    time: "14:32:38",
+    geo: "US",
+    path: "/blog/new-features",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
   { time: "14:32:35", geo: "CA", path: "/pricing", event: "click", eventColor: "text-[#888888]" },
   {
     time: "14:32:31",
@@ -38,7 +62,13 @@ const liveRows = [
   },
   { time: "14:32:28", geo: "JP", path: "/docs", event: "page_view", eventColor: "text-[#ededed]" },
   { time: "14:32:25", geo: "AU", path: "/about", event: "click", eventColor: "text-[#888888]" },
-  { time: "14:32:20", geo: "US", path: "/pricing", event: "page_view", eventColor: "text-[#ededed]" },
+  {
+    time: "14:32:20",
+    geo: "US",
+    path: "/pricing",
+    event: "page_view",
+    eventColor: "text-[#ededed]",
+  },
   { time: "14:32:15", geo: "BR", path: "/login", event: "click", eventColor: "text-[#888888]" },
 ];
 
@@ -97,7 +127,9 @@ export default function RealtimePage() {
             >
               {stat.value}
             </motion.span>
-            <div className={`absolute bottom-5 right-5 flex items-center text-xs font-mono ${stat.tone}`}>
+            <div
+              className={`absolute bottom-5 right-5 flex items-center text-xs font-mono ${stat.tone}`}
+            >
               <motion.svg
                 width="12"
                 height="12"

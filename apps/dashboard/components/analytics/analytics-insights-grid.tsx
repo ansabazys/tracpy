@@ -21,7 +21,6 @@ const TOP_PAGES = [
 export function AnalyticsInsightsGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      
       {/* Top Events */}
       <motion.div
         className="overflow-hidden border border-[#1a1a1a] bg-[#0a0a0a]"
@@ -40,7 +39,7 @@ export function AnalyticsInsightsGrid() {
           {TOP_EVENTS.map((event, i) => {
             const isPositive = event.trend.startsWith("+");
             return (
-              <motion.div 
+              <motion.div
                 key={event.name}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -50,7 +49,9 @@ export function AnalyticsInsightsGrid() {
               >
                 <div className="col-span-8 flex items-center text-[#ededed]">{event.name}</div>
                 <div className="col-span-2 text-right font-semibold text-white">{event.count}</div>
-                <div className={`col-span-2 text-right font-medium ${isPositive ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                <div
+                  className={`col-span-2 text-right font-medium ${isPositive ? "text-[#22c55e]" : "text-[#ef4444]"}`}
+                >
                   {event.trend}
                 </div>
               </motion.div>
@@ -70,7 +71,7 @@ export function AnalyticsInsightsGrid() {
         </div>
         <div className="flex-1 p-5 flex flex-col gap-4">
           {TOP_PAGES.map((page, i) => (
-            <motion.div 
+            <motion.div
               key={page.path}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -80,14 +81,11 @@ export function AnalyticsInsightsGrid() {
               <div className="text-xs font-mono text-[#888888] group-hover:text-white transition-colors">
                 {page.path}
               </div>
-              <div className="font-semibold text-[#ededed]">
-                {page.views}
-              </div>
+              <div className="font-semibold text-[#ededed]">{page.views}</div>
             </motion.div>
           ))}
         </div>
       </motion.div>
-
     </div>
   );
 }

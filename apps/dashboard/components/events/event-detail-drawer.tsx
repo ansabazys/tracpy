@@ -63,7 +63,9 @@ function JsonTreeNode({
     );
   }
 
-  const entries = isArray ? value.map((item, index) => [String(index), item] as const) : Object.entries(value);
+  const entries = isArray
+    ? value.map((item, index) => [String(index), item] as const)
+    : Object.entries(value);
 
   return (
     <div className="py-1 text-[11px]">
@@ -74,13 +76,20 @@ function JsonTreeNode({
       >
         <ChevronRight className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-90" : ""}`} />
         {label ? <span>{label}</span> : null}
-        <span className="text-[#555]">{isArray ? `[${entries.length}]` : `{${entries.length}}`}</span>
+        <span className="text-[#555]">
+          {isArray ? `[${entries.length}]` : `{${entries.length}}`}
+        </span>
       </button>
 
       {isOpen ? (
         <div className="ml-5 mt-1 border-l border-[#1a1a1a] pl-3">
           {entries.map(([entryLabel, entryValue]) => (
-            <JsonTreeNode key={entryLabel} label={entryLabel} value={entryValue} depth={depth + 1} />
+            <JsonTreeNode
+              key={entryLabel}
+              label={entryLabel}
+              value={entryValue}
+              depth={depth + 1}
+            />
           ))}
         </div>
       ) : null}
@@ -204,12 +213,36 @@ export function EventDetailDrawer({ event, onClose }: EventDetailDrawerProps) {
 
             <div className="flex-1 overflow-y-auto p-5">
               <div className="mb-8 grid grid-cols-2 gap-4">
-                <MetaBlock icon={<Clock className="h-3.5 w-3.5" />} label="Timestamp" value={formatTimestamp(event.timestamp)} />
-                <MetaBlock icon={<User className="h-3.5 w-3.5" />} label="User ID" value={event.userId} />
-                <MetaBlock icon={<Server className="h-3.5 w-3.5" />} label="Session ID" value={event.sessionId} />
-                <MetaBlock icon={<Code className="h-3.5 w-3.5" />} label="Path" value={event.path} />
-                <MetaBlock icon={<Monitor className="h-3.5 w-3.5" />} label="Device / Browser" value={`${event.device} | ${event.browser}`} />
-                <MetaBlock icon={<MapPin className="h-3.5 w-3.5" />} label="Country" value={event.country} />
+                <MetaBlock
+                  icon={<Clock className="h-3.5 w-3.5" />}
+                  label="Timestamp"
+                  value={formatTimestamp(event.timestamp)}
+                />
+                <MetaBlock
+                  icon={<User className="h-3.5 w-3.5" />}
+                  label="User ID"
+                  value={event.userId}
+                />
+                <MetaBlock
+                  icon={<Server className="h-3.5 w-3.5" />}
+                  label="Session ID"
+                  value={event.sessionId}
+                />
+                <MetaBlock
+                  icon={<Code className="h-3.5 w-3.5" />}
+                  label="Path"
+                  value={event.path}
+                />
+                <MetaBlock
+                  icon={<Monitor className="h-3.5 w-3.5" />}
+                  label="Device / Browser"
+                  value={`${event.device} | ${event.browser}`}
+                />
+                <MetaBlock
+                  icon={<MapPin className="h-3.5 w-3.5" />}
+                  label="Country"
+                  value={event.country}
+                />
               </div>
 
               <div>
@@ -218,7 +251,9 @@ export function EventDetailDrawer({ event, onClose }: EventDetailDrawerProps) {
                     <Code className="h-3.5 w-3.5" />
                     <span>JSON Payload</span>
                   </div>
-                  {copied ? <span className="text-[10px] font-mono text-[#22c55e]">Copied</span> : null}
+                  {copied ? (
+                    <span className="text-[10px] font-mono text-[#22c55e]">Copied</span>
+                  ) : null}
                 </div>
 
                 <div className="border border-[#1a1a1a] bg-[#111] p-4 font-mono">

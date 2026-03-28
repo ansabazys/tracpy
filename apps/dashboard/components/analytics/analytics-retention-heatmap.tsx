@@ -30,7 +30,9 @@ export function AnalyticsRetentionHeatmap() {
       <div className="flex items-center justify-between mb-6 min-w-[600px]">
         <div>
           <h3 className="text-[13px] font-semibold tracking-wide text-white">Cohort Retention</h3>
-          <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-[#888888]">User retention over weeks</p>
+          <p className="mt-1 text-[10px] font-mono uppercase tracking-widest text-[#888888]">
+            User retention over weeks
+          </p>
         </div>
       </div>
 
@@ -39,7 +41,7 @@ export function AnalyticsRetentionHeatmap() {
         <div className="grid grid-cols-[100px_60px_repeat(7,1fr)] gap-1 mb-2">
           <div className="text-xs font-medium text-[#888888]">Cohort</div>
           <div className="text-xs font-medium text-[#888888] text-right pr-4">Size</div>
-          {[0, 1, 2, 3, 4, 5, 6].map(week => (
+          {[0, 1, 2, 3, 4, 5, 6].map((week) => (
             <div key={week} className="text-xs font-medium text-[#888888] text-center">
               Week {week}
             </div>
@@ -50,20 +52,22 @@ export function AnalyticsRetentionHeatmap() {
         {COHORTS.map((cohort, rowIndex) => (
           <div key={cohort.name} className="grid grid-cols-[100px_60px_repeat(7,1fr)] gap-1">
             <div className="text-xs text-white flex items-center">{cohort.name}</div>
-            <div className="text-xs text-[#888888] font-mono flex items-center justify-end pr-4">{cohort.size}</div>
-            
+            <div className="text-xs text-[#888888] font-mono flex items-center justify-end pr-4">
+              {cohort.size}
+            </div>
+
             {cohort.values.map((val, colIndex) => (
               <motion.div
                 key={`${rowIndex}-${colIndex}`}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.24, 
-                  delay: 0.2 + ((rowIndex * 7 + colIndex) * 0.01),
-                  ease: "easeOut" 
+                transition={{
+                  duration: 0.24,
+                  delay: 0.2 + (rowIndex * 7 + colIndex) * 0.01,
+                  ease: "easeOut",
                 }}
                 className={`flex items-center justify-center p-2 rounded-md text-[11px] h-8 relative group cursor-pointer ${
-                  val === null ? 'bg-[#111] border border-[#1a1a1a]' : ''
+                  val === null ? "bg-[#111] border border-[#1a1a1a]" : ""
                 }`}
                 style={{ backgroundColor: getBackgroundColor(val) }}
               >

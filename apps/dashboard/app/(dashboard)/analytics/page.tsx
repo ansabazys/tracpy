@@ -9,10 +9,42 @@ import { AnalyticsRetentionHeatmap } from "@/components/analytics/analytics-rete
 import { AnalyticsInsightsPanel } from "@/components/analytics/analytics-insights-panel";
 
 // Dummy data for the KPI sparklines
-const eventsData = [{ value: 10 }, { value: 15 }, { value: 20 }, { value: 25 }, { value: 22 }, { value: 45 }, { value: 65 }];
-const usersData = [{ value: 5 }, { value: 8 }, { value: 12 }, { value: 10 }, { value: 15 }, { value: 22 }, { value: 25 }];
-const sessionData = [{ value: 120 }, { value: 130 }, { value: 140 }, { value: 135 }, { value: 150 }, { value: 165 }, { value: 175 }];
-const retentionData = [{ value: 100 }, { value: 90 }, { value: 85 }, { value: 82 }, { value: 75 }, { value: 78 }, { value: 72 }];
+const eventsData = [
+  { value: 10 },
+  { value: 15 },
+  { value: 20 },
+  { value: 25 },
+  { value: 22 },
+  { value: 45 },
+  { value: 65 },
+];
+const usersData = [
+  { value: 5 },
+  { value: 8 },
+  { value: 12 },
+  { value: 10 },
+  { value: 15 },
+  { value: 22 },
+  { value: 25 },
+];
+const sessionData = [
+  { value: 120 },
+  { value: 130 },
+  { value: 140 },
+  { value: 135 },
+  { value: 150 },
+  { value: 165 },
+  { value: 175 },
+];
+const retentionData = [
+  { value: 100 },
+  { value: 90 },
+  { value: 85 },
+  { value: 82 },
+  { value: 75 },
+  { value: 78 },
+  { value: 72 },
+];
 
 const pageVariants = {
   hidden: {},
@@ -68,18 +100,34 @@ export default function AnalyticsPage() {
         }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
       >
-        <AnalyticsKpiCard 
-          index={0} title="Total Events" value="245.8K" change={12.4} data={eventsData} 
+        <AnalyticsKpiCard
+          index={0}
+          title="Total Events"
+          value="245.8K"
+          change={12.4}
+          data={eventsData}
         />
-        <AnalyticsKpiCard 
-          index={1} title="Active Users" value="12.4K" change={8.2} data={usersData} 
+        <AnalyticsKpiCard
+          index={1}
+          title="Active Users"
+          value="12.4K"
+          change={8.2}
+          data={usersData}
         />
-        <AnalyticsKpiCard 
-          index={2} title="Avg Session Duration" value="2m 45s" change={-1.5} data={sessionData} 
+        <AnalyticsKpiCard
+          index={2}
+          title="Avg Session Duration"
+          value="2m 45s"
+          change={-1.5}
+          data={sessionData}
           titleClassName="normal-case"
         />
-        <AnalyticsKpiCard 
-          index={3} title="Retention Rate" value="78.2%" change={4.5} data={retentionData} 
+        <AnalyticsKpiCard
+          index={3}
+          title="Retention Rate"
+          value="78.2%"
+          change={4.5}
+          data={retentionData}
         />
       </motion.div>
 

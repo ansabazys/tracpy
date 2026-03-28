@@ -34,7 +34,6 @@ function createDonutSegment(percent: number, offset: number) {
 export function AnalyticsSegmentation() {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-      
       {/* Device (Donut Chart) */}
       <motion.div
         className="border border-[#1a1a1a] bg-[#0a0a0a] p-5"
@@ -45,20 +44,31 @@ export function AnalyticsSegmentation() {
         <div className="flex items-center gap-6">
           <div className="relative w-24 h-24 flex-shrink-0">
             <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-              <motion.circle cx="18" cy="18" r="15.91549430918954" fill="transparent" stroke="#111" strokeWidth="3" />
+              <motion.circle
+                cx="18"
+                cy="18"
+                r="15.91549430918954"
+                fill="transparent"
+                stroke="#111"
+                strokeWidth="3"
+              />
               {DEVICES.map((d, i) => {
                 const offset = DEVICES.slice(0, i).reduce((acc, curr) => acc + curr.percent, 0);
                 const { strokeDasharray, strokeDashoffset } = createDonutSegment(d.percent, offset);
                 return (
-                  <motion.circle 
+                  <motion.circle
                     key={d.name}
-                    cx="18" cy="18" r="15.91549430918954" fill="transparent" 
-                    stroke={d.color} strokeWidth="3"
+                    cx="18"
+                    cy="18"
+                    r="15.91549430918954"
+                    fill="transparent"
+                    stroke={d.color}
+                    strokeWidth="3"
                     strokeDasharray={strokeDasharray}
                     strokeDashoffset={strokeDashoffset}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.6 + (i * 0.1) }}
+                    transition={{ duration: 1, delay: 0.6 + i * 0.1 }}
                   />
                 );
               })}
@@ -66,11 +76,11 @@ export function AnalyticsSegmentation() {
           </div>
           <div className="flex flex-col justify-center flex-1 gap-3">
             {DEVICES.map((d, i) => (
-              <motion.div 
+              <motion.div
                 key={d.name}
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.7 + (i * 0.1) }}
+                transition={{ duration: 0.3, delay: 0.7 + i * 0.1 }}
                 className="flex items-center justify-between"
               >
                 <div className="flex items-center gap-2">
@@ -99,10 +109,10 @@ export function AnalyticsSegmentation() {
                 <span className="text-white font-medium">{b.percent}%</span>
               </div>
               <div className="w-full h-1.5 bg-[#111111]  overflow-hidden">
-                <motion.div 
+                <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${b.percent}%` }}
-                  transition={{ duration: 0.8, delay: 0.7 + (i * 0.1), ease: "easeOut" }}
+                  transition={{ duration: 0.8, delay: 0.7 + i * 0.1, ease: "easeOut" }}
                   className="h-full bg-white"
                 />
               </div>
@@ -126,10 +136,10 @@ export function AnalyticsSegmentation() {
                 <span className="text-white font-medium">{c.percent}%</span>
               </div>
               <div className="w-full h-1.5 bg-[#111111]  overflow-hidden">
-                <motion.div 
+                <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${c.percent}%` }}
-                  transition={{ duration: 0.8, delay: 0.8 + (i * 0.1), ease: "easeOut" }}
+                  transition={{ duration: 0.8, delay: 0.8 + i * 0.1, ease: "easeOut" }}
                   className="h-full bg-white opacity-60"
                 />
               </div>
@@ -137,7 +147,6 @@ export function AnalyticsSegmentation() {
           ))}
         </div>
       </motion.div>
-
     </div>
   );
 }

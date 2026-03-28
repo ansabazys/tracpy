@@ -2,12 +2,23 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { EventsFilterBar, type DateRangeFilter, type EventStatusFilter } from "@/components/events/events-filter-bar";
+import {
+  EventsFilterBar,
+  type DateRangeFilter,
+  type EventStatusFilter,
+} from "@/components/events/events-filter-bar";
 import { EventsTable } from "@/components/events/events-table";
 import { EventDetailDrawer, type EventLog } from "@/components/events/event-detail-drawer";
 import { EventsSidebar } from "@/components/events/events-sidebar";
 
-const EVENT_NAMES = ["page_view", "click", "signup", "checkout_started", "api_error", "form_submit"] as const;
+const EVENT_NAMES = [
+  "page_view",
+  "click",
+  "signup",
+  "checkout_started",
+  "api_error",
+  "form_submit",
+] as const;
 const PATHS = ["/", "/pricing", "/docs/api", "/dashboard", "/signup", "/checkout", "/api/billing"];
 const DEVICES = ["MacBook Pro", "Windows PC", "iPhone 14", "Pixel 8", "iPad Pro"];
 const BROWSERS = ["Chrome 122", "Safari 17", "Edge 121", "Firefox 123"];
@@ -23,7 +34,8 @@ const topStatVariants = {
 function createMockEvent(index: number, now: number): EventLog {
   const eventName = EVENT_NAMES[index % EVENT_NAMES.length];
   const timestamp = new Date(now - index * 1000 * 60 * 18 - (index % 7) * 1000 * 43);
-  const status: EventLog["status"] = eventName === "api_error" || index % 14 === 0 ? "error" : "success";
+  const status: EventLog["status"] =
+    eventName === "api_error" || index % 14 === 0 ? "error" : "success";
   const userId = `usr_${(1000 + index * 17).toString().padStart(4, "0")}`;
   const sessionId = `sess_${(900000 + index * 13).toString(36)}`;
   const path = PATHS[index % PATHS.length];
@@ -38,7 +50,9 @@ function createMockEvent(index: number, now: number): EventLog {
   }
 
   if (eventName === "click") {
-    baseProperties.element = ["cta_primary", "nav_docs", "pricing_toggle", "checkout_submit"][index % 4];
+    baseProperties.element = ["cta_primary", "nav_docs", "pricing_toggle", "checkout_submit"][
+      index % 4
+    ];
   }
 
   if (eventName === "page_view") {
@@ -121,7 +135,9 @@ export default function EventsPage() {
     if (!isLive) return;
 
     const interval = window.setInterval(() => {
-      setEvents((current) => [createMockEvent(current.length + 1, Date.now()), ...current].slice(0, 100));
+      setEvents((current) =>
+        [createMockEvent(current.length + 1, Date.now()), ...current].slice(0, 100),
+      );
     }, 2400);
 
     return () => window.clearInterval(interval);
@@ -191,9 +207,24 @@ export default function EventsPage() {
   const signupCount = filteredEvents.filter((event) => event.eventName === "signup").length;
 
   const topStats = [
-    { label: "Events", value: formatCompactNumber(totalEvents), delta: `${eventTypeCounts.length} types`, tone: "text-[#888888]" },
-    { label: "Errors", value: formatCompactNumber(errorCount), delta: `${totalEvents === 0 ? 0 : Math.round((errorCount / totalEvents) * 100)}% rate`, tone: errorCount > 0 ? "text-[#ef4444]" : "text-[#888888]" },
-    { label: "Signups", value: formatCompactNumber(signupCount), delta: `${isLive ? "Live stream on" : "Snapshot"}`, tone: "text-[#22c55e]" },
+    {
+      label: "Events",
+      value: formatCompactNumber(totalEvents),
+      delta: `${eventTypeCounts.length} types`,
+      tone: "text-[#888888]",
+    },
+    {
+      label: "Errors",
+      value: formatCompactNumber(errorCount),
+      delta: `${totalEvents === 0 ? 0 : Math.round((errorCount / totalEvents) * 100)}% rate`,
+      tone: errorCount > 0 ? "text-[#ef4444]" : "text-[#888888]",
+    },
+    {
+      label: "Signups",
+      value: formatCompactNumber(signupCount),
+      delta: `${isLive ? "Live stream on" : "Snapshot"}`,
+      tone: "text-[#22c55e]",
+    },
   ];
 
   return (
@@ -229,9 +260,13 @@ export default function EventsPage() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -4, borderColor: "#2a2a2a" }}
           >
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#888888]">{stat.label}</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#888888]">
+              {stat.label}
+            </span>
             <span className="pb-1 text-3xl font-semibold tracking-tight">{stat.value}</span>
-            <div className={`absolute bottom-5 right-5 text-xs font-mono ${stat.tone}`}>{stat.delta}</div>
+            <div className={`absolute bottom-5 right-5 text-xs font-mono ${stat.tone}`}>
+              {stat.delta}
+            </div>
           </motion.div>
         ))}
       </motion.div>
@@ -249,7 +284,9 @@ export default function EventsPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[10px] font-mono font-semibold tracking-widest text-[#888]">Live</span>
+          <span className="text-[10px] font-mono font-semibold tracking-widest text-[#888]">
+            Live
+          </span>
           <button
             onClick={() => setIsLive((current) => !current)}
             className={`relative flex h-6 w-11 items-center border px-1 transition-colors focus:outline-none ${isLive ? "border-[#22c55e]/50 bg-[#22c55e]/20" : "border-[#333] bg-[#1a1a1a]"}`}
