@@ -12,8 +12,11 @@ import {
   Settings,
   ChevronLeft,
   Activity,
+  CircleQuestionMark,
+  Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/lib/store/auth-store";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Overview", href: "/overview" },
@@ -35,6 +38,7 @@ export function Sidebar({
   setOpen: (v: boolean) => void;
 }) {
   const pathname = usePathname();
+  const { user } = useAuthStore();
 
   return (
     <>
@@ -91,13 +95,41 @@ export function Sidebar({
           </div>
 
           {/* FOOTER */}
-          <Link
-            href="/settings"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-[#111] hover:text-white"
-          >
-            <Settings className="h-4 w-4" />
-            {!collapsed && "Settings"}
-          </Link>
+          <div className="flex flex-col gap-10">
+            <div className="space-y-1 flex-1">
+              <Link
+                href="/settings"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-[#111] hover:text-white"
+              >
+                <Settings className="h-4 w-4" />
+                {!collapsed && "Settings"}
+              </Link>
+              <Link
+                href="/settings"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-[#111] hover:text-white"
+              >
+                <CircleQuestionMark className="h-4 w-4" />
+                {!collapsed && "Get Help"}
+              </Link>
+              <Link
+                href="/settings"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-[#111] hover:text-white"
+              >
+                <Search className="h-4 w-4" />
+                {!collapsed && "Search"}
+              </Link>
+            </div>
+
+            <div className="flex gap-3">
+              <div className="w-10 h-10 bg-[#111] rounded-2xl"></div>
+              {!collapsed && (
+                <div>
+                  <h1 className="text-white text-sm">{user?.name}</h1>
+                  <p className="text-sm text-gray-400">{user?.email}</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </aside>
     </>

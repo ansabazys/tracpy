@@ -52,7 +52,7 @@ const topRegions = [
 export default function RealtimePage() {
   return (
     <motion.div
-      className="flex flex-col gap-4 w-full h-full text-white bg-[#0a0a0a] min-h-screen"
+      className="flex flex-col gap-4 w-full h-full text-white uppercase bg-[#0a0a0a] min-h-screen"
       initial="hidden"
       animate="show"
       variants={{
@@ -175,8 +175,8 @@ export default function RealtimePage() {
               <motion.div
                 key={`${row.time}-${row.path}`}
                 className={`grid grid-cols-12 px-5 py-3 text-xs font-mono cursor-pointer transition-colors hover:bg-[#111] ${row.highlight ? "bg-[#111111]" : ""}`}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.18 + i * 0.035, duration: 0.28 }}
                 whileHover={{ backgroundColor: "#111111" }}
               >
@@ -194,7 +194,7 @@ export default function RealtimePage() {
         <motion.div
           className="flex w-full flex-col gap-4 lg:w-[320px]"
           variants={{
-            hidden: { opacity: 0, x: 16 },
+            hidden: { opacity: 0, x: 1 },
             show: { opacity: 1, x: 0 },
           }}
           transition={{ duration: 0.45, delay: 0.12 }}

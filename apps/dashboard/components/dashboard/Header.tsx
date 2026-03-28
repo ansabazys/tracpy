@@ -34,6 +34,7 @@ export function Header({ setOpen }: { setOpen: (v: boolean) => void }) {
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
+        
       </div>
     </header>
   );
